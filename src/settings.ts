@@ -69,6 +69,20 @@ export const handleSettings = async ({
           'Specify how authors should be shown in the properties. Available placeholders: <% firstName %>, <% lastName %>, <% creatorType %>',
         default: '<% firstName %> <% lastName %> (<% creatorType %>)',
       },
+      {
+        key: 'useZoteroLinks',
+        type: 'boolean',
+        title: 'Use Zotero Links',
+        description: 'Use zotero:// links for attachments, instead of local file links',
+        default: false
+      },
+      {
+        key: 'linkedAttachmentBasePath',
+        type: 'string',
+        title: 'Linked Attachment Base Directory',
+        description: `Base directory for linked attachments. Should be the same value as the option in Zotero (under Settings > Advanced). This is not used if the 'Use Zotero Links' option is enabled`,
+        default: ''
+      }
     ]
 
     settings = [...settings, ...pluginSettings]
