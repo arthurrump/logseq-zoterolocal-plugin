@@ -3,7 +3,6 @@ import '@logseq/libs'
 import { BlockCursorPosition } from '@logseq/libs/dist/LSPlugin'
 import { createRoot } from 'react-dom/client'
 
-import { handlePopup } from './handle-popup'
 import { GlossaryObj } from './interfaces'
 import { isValidSettings } from './services/check-settings'
 import { createTemplateGlossary } from './services/create-template-glossary'
@@ -12,18 +11,17 @@ import { handleSettings } from './settings'
 import { ZotContainer } from './ZotContainer'
 
 const main = async () => {
-  console.log('logseq-zoterolocal-plugin loaded')
-
   // Used to handle any popups
-  handlePopup()
 
   // Get initial items
   const response = await testZotConnection()
   handleSettings(response)
   if (response.code === 'error') return
 
-  const validSettings = isValidSettings()
-  if (!validSettings) return
+  // Check for valid settings
+  await isValidSettings()
+
+  // Create schema for ZotItem properties
 
   const el = document.getElementById('app')
   if (!el) return

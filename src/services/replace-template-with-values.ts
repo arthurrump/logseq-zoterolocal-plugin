@@ -3,6 +3,7 @@ import { format, parse, parseISO } from 'date-fns'
 import { AttachmentItem, CollectionItem, CreatorItem, NoteItem, ZotData } from '../interfaces'
 import { getCollectionNames } from './get-collection-names'
 
+export const ATTACHMENT_SEPARATOR = '|,,,,|'
 export const replaceTemplateWithValues = async (
   template: string,
   data: ZotData | CreatorItem | AttachmentItem,
@@ -90,7 +91,8 @@ export const replaceTemplateWithValues = async (
 
         attachmentArr.push(str)
       }
-      result = result.replace(placeholder, attachmentArr.join(', '))
+      result = result.replace(placeholder, attachmentArr.join(ATTACHMENT_SEPARATOR))
+      console.log(result)
     } else if (key === 'creators') {
       const creatorArr = []
       for (const creator of value) {

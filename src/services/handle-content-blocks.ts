@@ -2,7 +2,10 @@ import { BlockEntity, IBatchBlock } from '@logseq/libs/dist/LSPlugin'
 
 import { ZotData } from '../interfaces'
 import { parseHtml } from './parse-html'
-import { replaceTemplateWithValues } from './replace-template-with-values'
+import {
+  ATTACHMENT_SEPARATOR,
+  replaceTemplateWithValues,
+} from './replace-template-with-values'
 
 export const handleContentBlocks = async (
   blocks: BlockEntity[],
@@ -10,7 +13,10 @@ export const handleContentBlocks = async (
   result: IBatchBlock[],
 ) => {
   for (const block of blocks) {
-    const content = await replaceTemplateWithValues(block.content, data)
+    const content = await replaceTemplateWithValues(
+      block.content as string,
+      data,
+    )
 
     // Below approach assumes that the attachments and notes have no child blocks below the actual template placeholder, which is a fair assumption.
     if (content.includes('||||||')) {
@@ -45,7 +51,7 @@ export const handleContentBlocks = async (
     } else if (/\[.*?\]\(.*?\)/.test(content)) {
       // Handle attachments
 
-      const attachmentArr = content.split(',')
+      const attachmentArr = content.split(ATTACHMENT_SEPARATOR) // assuming attachments are separated by ', '
       attachmentArr.forEach((attachment) => {
         result.push({
           content: attachment.trim(),
