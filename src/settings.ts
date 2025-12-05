@@ -5,9 +5,9 @@ import { ZOT_DATA_KEY_MAP } from './constants'
 const propsArray = Object.keys(ZOT_DATA_KEY_MAP)
 
 export const handleSettings = async ({
-  code,
-  msg,
-}: {
+                                       code,
+                                       msg,
+                                     }: {
   code: 'error' | 'success'
   msg: string
 }) => {

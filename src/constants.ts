@@ -176,4 +176,5 @@ export const ZOT_DATA_KEY_MAP = {
   inGraph: true,
   libraryLink: true,
   notes: true,
+  path: true,
 } satisfies Record<keyof ZotData, true>
